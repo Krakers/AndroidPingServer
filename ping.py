@@ -1,7 +1,7 @@
 import httplib
 import time
 
-httpServ = httplib.HTTPConnection("localhost", 8080)
+httpServ = httplib.HTTPConnection("192.168.54.5", 8080)
 httpServ.connect()
 
 timeBeforeRequest = time.time()
