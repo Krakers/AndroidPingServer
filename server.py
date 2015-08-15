@@ -1,13 +1,16 @@
 import web
-import time
 urls = (
     '/', 'index'
 )
 
+
 class index:
     def GET(self):
-    	time.sleep(2)
         return "Hello, world!"
+
+    def POST(self):
+        data = web.data()
+        print data
 
 if __name__ == "__main__":
     app = web.application(urls, globals())
