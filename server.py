@@ -1,0 +1,15 @@
+import os
+from flask import Flask, render_template, request
+
+app = Flask(__name__)
+
+
+@app.route('/', methods=['GET', 'POST'])
+def hello():
+    if request.method == 'POST':
+        return 'Hello Ola POST' + request.form['data']
+    else:
+        return 'Hello Ola GET'
+
+app.debug = True
+app.run(host='0.0.0.0', port=int(os.environ['PORT']))
