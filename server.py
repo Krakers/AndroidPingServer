@@ -7,9 +7,9 @@ app = Flask(__name__)
 @app.route('/', methods=['GET', 'POST'])
 def hello():
     if request.method == 'POST':
-        return 'Hello Ola POST' + request.form['data']
+        return request.data
     else:
-        return 'Hello Ola GET'
+        return 'Hello World!'
 
 app.debug = True
 app.run(host='0.0.0.0', port=int(os.environ['PORT']))
