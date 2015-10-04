@@ -1,17 +1,15 @@
-import web
-urls = (
-    '/', 'index'
-)
+import os
+from flask import Flask, render_template, request
+
+app = Flask(__name__)
 
 
-class index:
-    def GET(self):
-        return "Hello, world!"
+@app.route('/', methods=['GET', 'POST'])
+def hello():
+    if request.method == 'POST':
+        return request.args.get('data', '')
+    else:
+        return 'Hello World!'
 
-    def POST(self):
-        data = web.data()
-        print data
-
-if __name__ == "__main__":
-    app = web.application(urls, globals())
-    app.run()
+app.debug = True
+app.run(host='0.0.0.0', port=int(os.environ['PORT']))
