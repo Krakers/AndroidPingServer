@@ -7,7 +7,7 @@ app = Flask(__name__)
 @app.route('/', methods=['GET', 'POST'])
 def hello():
     if request.method == 'POST':
-        return request.args.get('data', '')
+        return request.values.get('data', '')
     else:
         return 'Hello World!'
 
