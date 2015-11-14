@@ -30,7 +30,7 @@ while True:
                 if 'PACKET_SIZE' in data:
                     packet_size = int(data.split(':')[1])
                     print >>sys.stderr, 'packet size set to %s' % packet_size
-		else
+		else:
                     print >>sys.stderr, 'sending data back to the client'
                     connection.sendall(data)
             else:
