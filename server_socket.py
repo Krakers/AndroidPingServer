@@ -5,7 +5,7 @@ import sys
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # Bind the socket to the port
-server_address = ('localhost', 8000)
+server_address = ('0.0.0.0', 8000)
 print >>sys.stderr, 'starting up on %s port %s' % server_address
 sock.bind(server_address)
 
@@ -24,12 +24,15 @@ while True:
         # Receive the data in small chunks and retransmit it
         while True:
             data = connection.recv(packet_size)
+            data = data.strip('\r\n');
             print >>sys.stderr, 'received "%s"' % data
             if data:
                 if 'PACKET_SIZE' in data:
                     packet_size = int(data.split(':')[1])
-                print >>sys.stderr, 'sending data back to the client'
-                connection.sendall(data)
+                    print >>sys.stderr, 'packet size set to %s' % packet_size
+		else
+                    print >>sys.stderr, 'sending data back to the client'
+                    connection.sendall(data)
             else:
                 print >>sys.stderr, 'no more data from', client_address
                 break
