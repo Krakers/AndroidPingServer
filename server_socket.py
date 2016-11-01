@@ -36,7 +36,7 @@ while True:
             else:
                 print >>sys.stderr, 'no more data from', client_address
                 break
-            
+
     finally:
         # Clean up the connection
         print >>sys.stderr, 'closing the connection'
