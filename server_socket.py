@@ -13,7 +13,7 @@ sock.bind(server_address)
 
 # Listen for incoming connections
 sock.listen(1)
-packet_size = 16
+packet_size = 65000
 
 while True:
     # Wait for a connection
@@ -27,17 +27,19 @@ while True:
         while True:
             data = connection.recv(packet_size)
             data = data.strip('\r\n');
-            print >>sys.stderr, 'received "%s"' % data
             if data:
-                if 'PACKET_SIZE' in data:
+                print >>sys.stderr, 'received "%s"' % data
+                if 'PACKET_SIZE:' in data:
                     packet_size = int(data.split(':')[1])
                     print >>sys.stderr, 'packet size set to %s' % packet_size
+                elif 'CLOSE_SOCKET' in data:
+                    break
                 else:
                     print >>sys.stderr, 'sending data back to the client'
-                    connection.sendall(data)
-            else:
-                print >>sys.stderr, 'no more data from', client_address
-                break
+                    connection.send(data)
+            #else:
+            #    print >>sys.stderr, 'no more data from', client_address
+            #    break
 
     finally:
         # Clean up the connection
