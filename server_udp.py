@@ -5,7 +5,8 @@ import sys
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 # Bind the socket to the port
-server_address = ('0.0.0.0', 8000)
+port = int(sys.argv[1]) if len(sys.argv) > 1 else 8000
+server_address = ('0.0.0.0', port)
 print >>sys.stderr, 'starting up on %s port %s' % server_address
 sock.bind(server_address)
 
